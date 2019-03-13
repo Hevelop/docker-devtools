@@ -21,7 +21,6 @@ RUN docker-php-ext-configure \
   gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/
 
 # Install required PHP extensions
-
 RUN docker-php-ext-install \
   dom \
   gd \
@@ -43,18 +42,21 @@ RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 # update the repository sources list
 # and install dependencies
 RUN apt-get update \
-    && apt-get install -y curl gnupg2 \
+    && apt-get install -y curl gnupg2 net-tools \
     && apt-get -y autoclean
 
 RUN mkdir -p /var/www/.npm && chown -R www-data:www-data /var/www/.npm
 RUN mkdir -p /var/www/.nvm && chown -R www-data:www-data /var/www/.nvm
 RUN mkdir -p /var/www/.config && chown -R www-data:www-data /var/www/.config
-#USER www-data
 
 # Install Node, NVM, NPM and Grunt
 RUN curl -sL https://deb.nodesource.com/setup_6.x | bash - \
   	&& apt-get install -y nodejs build-essential \
     && curl https://raw.githubusercontent.com/creationix/nvm/v0.16.1/install.sh | sh \
     && npm i -g grunt-cli yarn
+
+COPY ./entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+ENTRYPOINT ["/entrypoint.sh"]
 
 CMD ["php", "-A"]
