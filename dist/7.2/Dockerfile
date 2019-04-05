@@ -12,7 +12,9 @@ RUN apt-get update \
     libmcrypt-dev \
     libpng-dev \
     libxslt1-dev \
-    sudo
+    mysql-client \
+    sudo \
+    curl
 
 # Configure the gd library
 RUN docker-php-ext-configure \
