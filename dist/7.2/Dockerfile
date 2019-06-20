@@ -1,4 +1,4 @@
-FROM php:7.2-cli-stretch
+FROM hevelop/php:7.2-cli-stretch
 
 RUN usermod -u 1000 www-data
 RUN groupmod -g 1000 www-data
@@ -31,7 +31,8 @@ RUN docker-php-ext-install \
   xsl \
   zip \
   soap \
-  bcmath
+  bcmath \
+  pcntl && docker-php-ext-enable pcntl
 
 # Install Xdebug (but don't enable)
 RUN pecl install -o -f xdebug
