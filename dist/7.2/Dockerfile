@@ -40,6 +40,17 @@ RUN pecl install -o -f xdebug
 # replace shell with bash so we can source files
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 
+RUN apt-get update \
+  && apt-get install --no-install-recommends -y cmake make gcc libc6-dev
+
+WORKDIR /tmp
+ENV TINI_VERSION 0.18.0
+ADD https://github.com/krallin/tini/archive/v${TINI_VERSION}.tar.gz ./
+RUN tar -xf v${TINI_VERSION}.tar.gz \
+  && cmake tini-${TINI_VERSION} \
+  && make \
+  && mv /tmp/tini /usr/local/sbin/
+
 # update the repository sources list
 # and install dependencies
 RUN apt-get update \
@@ -67,5 +78,6 @@ RUN apt-get update \
 COPY ./entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
+WORKDIR /var/www/deploy
 
 CMD ["php", "-A"]
