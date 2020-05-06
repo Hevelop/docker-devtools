@@ -39,9 +39,8 @@ RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 # tini
 RUN ln -s /tini /usr/local/sbin/tini
 
-RUN mkdir -p /var/www/.npm && chown -R www-data:www-data /var/www/.npm
-RUN mkdir -p /var/www/.nvm && chown -R www-data:www-data /var/www/.nvm
-RUN mkdir -p /var/www/.config && chown -R www-data:www-data /var/www/.config
+# www-data home
+RUN chown -R www-data:www-data /var/www
 
 # Install Node, NVM, NPM and Grunt
 RUN curl -sL https://deb.nodesource.com/setup_12.x | bash - \
