@@ -46,8 +46,7 @@ RUN chown -R www-data:www-data /var/www
 RUN curl -sL https://deb.nodesource.com/setup_12.x | bash - \
     && apt-get install -y nodejs build-essential \
     && npm i -g grunt-cli yarn \
-    && su www-data -s /bin/bash -c 'curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash \
-    && chown -R www-data:www-data /var/www/.nvm'
+    && su www-data -s /bin/bash -c 'curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash'
 
 RUN apt-get -y autoclean
 
