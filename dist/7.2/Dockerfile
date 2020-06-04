@@ -32,7 +32,8 @@ RUN docker-php-ext-install \
   zip \
   soap \
   bcmath \
-  pcntl && docker-php-ext-enable pcntl
+  pcntl \
+  sockets && docker-php-ext-enable pcntl
 
 # Install Xdebug (but don't enable)
 RUN pecl install -o -f xdebug
