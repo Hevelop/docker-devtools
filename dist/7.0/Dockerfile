@@ -14,7 +14,9 @@ RUN apt-get update \
     libxslt1-dev \
     mysql-client \
     sudo \
-    curl
+    curl \
+    common \
+    calendar
 
 # Configure the gd library
 RUN docker-php-ext-configure \
@@ -32,6 +34,7 @@ RUN docker-php-ext-install \
   soap \
   bcmath \
   mcrypt \
+  calendar
   pcntl && docker-php-ext-enable pcntl
 
 # Install Xdebug (but don't enable)
