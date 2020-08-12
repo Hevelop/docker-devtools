@@ -1,4 +1,4 @@
-FROM hevelop/php:7.3-cli-stretch
+FROM hevelop/php:7.3-cli-buster
 
 ARG UNAME=www-data
 ARG UID=1000
@@ -14,7 +14,7 @@ RUN apt-get update
 
 # Install dependencies
 RUN apt-get install -y \
-    mysql-client \
+    default-mysql-client \
     sudo \
     gnupg2 \
     net-tools \
